@@ -97,6 +97,9 @@ of the default settings:
       yadm = {
         enable = false
       },
+      chezmoi = {
+        enable = false
+      },
     }
 <
 
@@ -767,6 +770,11 @@ yadm                                                    *gitsigns-config-yadm*
       Type: `table`, Default: `{ enable = false }`
 
       yadm configuration.
+
+chezmoi                                                    *gitsigns-config-chezmoi*
+      Type: `table`, Default: `{ enable = false }`
+
+      chezmoi configuration.
 
 word_diff                                          *gitsigns-config-word_diff*
       Type: `boolean`, Default: `false`

@@ -53,6 +53,7 @@ local record M
   version: Version
 
   enable_yadm: boolean
+  enable_chezmoi: boolean
 
   set_version: function(string)
   get_repo_info: function(path: string, cmd: string): string,string,string
@@ -276,6 +277,14 @@ Repo.new = function(dir: string): Repo
       and #M.command({'ls-files', dir}, {command = 'yadm'}) ~= 0 then
       self.toplevel, self.gitdir, self.abbrev_head =
         M.get_repo_info(dir, 'yadm')
+    end
+  end
+  -- Try chezmoi
+  if M.enable_chezmoi and not self.gitdir then
+    if vim.startswith(dir, os.getenv('HOME'))
+      and #M.command({'ls-files', dir}, {command = 'chezmoi git'}) ~= 0 then
+      self.toplevel, self.gitdir, self.abbrev_head =
+        M.get_repo_info(dir, 'chezmoi git')
     end
   end
 

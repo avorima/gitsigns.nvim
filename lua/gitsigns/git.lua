@@ -274,11 +274,21 @@ Repo.new = function(dir)
    if M.enable_yadm and not self.gitdir then
       if vim.startswith(dir, os.getenv('HOME')) and
          #M.command({ 'ls-files', dir }, { command = 'yadm' }) ~= 0 then
-         self.toplevel, self.gitdir, self.abbrev_head = 
+         self.toplevel, self.gitdir, self.abbrev_head =
          M.get_repo_info(dir, 'yadm')
       end
    end
-
+   if M.enable_chezmoi and not self.gitdir then
+      local home = os.getenv('HOME')
+      if vim.startswith(dir, home) then
+         local needle = dir:sub(#home+1)
+         local haystack = M.command({ 'managed', '--include=dirs' }, { command = 'chezmoi' })
+         if util.find_string(needle, haystack) then
+            self.toplevel, self.gitdir, self.abbrev_head =
+            M.get_repo_info(dir, 'chezmoi git --')
+         end
+      end
+   end
    return self
 end
 

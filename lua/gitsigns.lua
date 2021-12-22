@@ -160,7 +160,7 @@ M.detach = function(bufnr, _keep_signs)
 end
 
 local function get_buf_path(bufnr)
-   local file = 
+   local file =
    uv.fs_realpath(api.nvim_buf_get_name(bufnr)) or
 
    api.nvim_buf_call(bufnr, function()
@@ -169,7 +169,7 @@ local function get_buf_path(bufnr)
 
    if vim.startswith(file, 'fugitive://') and vim.wo.diff == false then
       local orig_path = file
-      local _, _, root_path, sub_module_path, commit, real_path = 
+      local _, _, root_path, sub_module_path, commit, real_path =
       file:find([[^fugitive://(.*)/%.git(.*)/(%x-)/(.*)]])
       if root_path then
          sub_module_path = sub_module_path:gsub("^/modules", "")
@@ -478,6 +478,11 @@ M.setup = void(function(cfg)
       config.yadm.enable = false
       return
    end
+   if config.chezmoi.enabled and vim.fn.executable('chezmoi') == 0 then
+     print("gitsigns: chezmoi not in path. Ignoring 'chezmoi.enable' in config")
+     config.chezmoi.enable = false
+     return
+   end
 
    namespace = api.nvim_create_namespace('gitsigns')
 
@@ -524,6 +529,7 @@ M.setup = void(function(cfg)
    })
 
    git.enable_yadm = config.yadm.enable
+   git.enable_chezmoi = config.chezmoi.enable
    git.set_version(config._git_version)
    scheduler()
 

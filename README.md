@@ -27,6 +27,7 @@ Super fast git decorations implemented purely in lua/teal.
 - Automatically follow files moved in the index.
 - Live intra-line word diff
 - Support for [yadm](https://yadm.io/)
+- Support for [chezmoi](https://chezmoi.io/)
 
 ## Requirements
 
@@ -140,6 +141,9 @@ require('gitsigns').setup {
     col = 1
   },
   yadm = {
+    enable = false
+  },
+  chezmoi {
     enable = false
   },
 }

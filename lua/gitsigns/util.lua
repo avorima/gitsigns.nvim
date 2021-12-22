@@ -90,4 +90,13 @@ function M.get_relative_time(timestamp)
    end
 end
 
+function M.find_string(needle, haystack)
+   for _, n in ipairs(haystack) do
+      if n == needle then
+         return true
+      end
+   end
+   return false
+end
+
 return M

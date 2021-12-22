@@ -23,7 +23,7 @@ local SchemaElem = {Deprecated = {}, }
 
 
 
-local M = {Config = {DiffOpts = {}, SignsConfig = {}, watch_gitdir = {}, current_line_blame_formatter_opts = {}, current_line_blame_opts = {}, yadm = {}, }, }
+local M = {Config = {DiffOpts = {}, SignsConfig = {}, watch_gitdir = {}, current_line_blame_formatter_opts = {}, current_line_blame_opts = {}, yadm = {}, chezmoi = {}, }, }
 
 
 
@@ -569,6 +569,14 @@ M.schema = {
       default = { enable = false },
       description = [[
       yadm configuration.
+    ]],
+   },
+
+   chezmoi = {
+      type = 'table',
+      default = { enable = false },
+      description = [[
+      chezmoi configuration.
     ]],
    },
 
